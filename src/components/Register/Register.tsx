@@ -1,8 +1,20 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Container from "@mui/material/Container";
+import FormControl from "@mui/material/FormControl";
+import Input from "@mui/material/Input";
+import Button from "@mui/material/Button";
 import { register } from "../../api/api";
 import { saveJWT, getJWT } from "../../common/auth-cookie";
 
+
 export default function Register() {
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      if(getJWT()) navigate('/');
+    });
 
     const [newUser, setNewUser] = useState({
       email: '',
@@ -20,21 +32,36 @@ export default function Register() {
       e.preventDefault();
       const { data } = await register({...newUser,age: +newUser.age});
       saveJWT(data.token);
-      console.log(getJWT());
+      navigate('/');
     }
 
-
-
   return (
-    <div>
+    <Container>
       <form onSubmit={handleSubmit}>
-        <input type="email" name="email" placeholder="email" onChange={handleChange}/>
-        <input type="password" name="password" placeholder="password" onChange={handleChange}/>
-        <input type="text" name="fullName" placeholder="full name" onChange={handleChange}/>
-        <input type="phone" name="phone" placeholder="phone" onChange={handleChange}/>
-        <input type="number" name="age" placeholder="age" onChange={handleChange}/>
-        <button>register</button>
+        <FormControl variant="standard">
+          <Input type="email" name="email" placeholder="Email" onChange={handleChange}/>
+        </FormControl>
+
+        <FormControl variant="standard">
+          <Input type="password" name="password" placeholder="Password" onChange={handleChange} />
+        </FormControl>
+
+        <FormControl variant="standard">
+          <Input type="text" name="fullName" placeholder="Full name" onChange={handleChange} />
+        </FormControl>
+
+        <FormControl variant="standard">
+          <Input type="phone" name="phone" placeholder="Phone" onChange={handleChange} />
+        </FormControl>
+
+        <FormControl variant="standard">
+          <Input type="number" name="age" placeholder="Age" onChange={handleChange} />
+        </FormControl>
+
+        <FormControl variant="standard">
+          <Button type="submit" variant="contained">Register</Button>
+        </FormControl>
       </form>
-    </div>
+    </Container>
   )
 }

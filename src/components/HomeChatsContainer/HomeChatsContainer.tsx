@@ -1,8 +1,11 @@
+
+import { ChatProvider } from "../../context/ChatContext";
+
 export default function HomeChatsContainer() {
 
-    
-
   return (
-    <div>HomeChatsContainer</div>
+    <ChatProvider>
+      
+    </ChatProvider>
   )
 }

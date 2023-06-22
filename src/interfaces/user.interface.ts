@@ -8,3 +8,5 @@ export interface User{
     photo?: string;
     isActive?: boolean;
 }
+
+export type UserLogin = Omit<User, '_id'|'fullName'|'phone'|'age'|'photo'|'isActive'>;

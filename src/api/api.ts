@@ -1,5 +1,11 @@
 import axios from "axios";
-import { User } from "../interfaces/user.interface";
+import { User, UserLogin } from '../interfaces/user.interface';
 
-export const register = async (newUser: User) =>
-    await axios.post('http://localhost:3000/api/users/register', newUser);
+export const register = async (user: User) =>
+    await axios.post('http://localhost:3000/api/users/register', user);
+
+export const login = async (userLogin: UserLogin) => 
+    await axios.post('http://localhost:3000/api/auth/login', userLogin);
+
+export const getAllChats = async(jwt: string) => 
+    await axios('http://localhost:3000/api/chat', { headers: {'Authorization': `Bearer ${jwt}` }});
