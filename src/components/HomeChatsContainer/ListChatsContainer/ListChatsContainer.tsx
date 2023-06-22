@@ -1,7 +1,20 @@
+import { useChat } from '../../../context/useChat';
+import ChatItem from './ChatItem/ChatItem';
 import './ListChatsContainer.css';
 
+
 export default function ListChatsContainer() {
+
+  const { chats } = useChat();
+  console.log(chats);
+
   return (
-    <div className="list-chats-grid">ListChatsContainer</div>
+    <div className="list-chats-grid">
+      {
+        chats.map(chat => (
+          <ChatItem chat={chat} key={chat._id}  />
+        ))
+      }
+    </div>
   )
 }

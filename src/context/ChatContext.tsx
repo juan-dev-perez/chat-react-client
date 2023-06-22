@@ -17,7 +17,6 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
   const getChats = async () => {
     const { data } = await getAllChats(getJWT());
     setChats(data)
-    console.log(data);
   }
 
   useEffect(() => {
