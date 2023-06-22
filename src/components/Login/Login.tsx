@@ -13,7 +13,7 @@ export default function Login() {
 
     useEffect(() => {
       if(getJWT()) navigate('/');
-    });
+    },[]);
 
     const [user, setUser] = useState({
         email: '',

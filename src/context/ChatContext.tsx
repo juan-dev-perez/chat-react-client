@@ -23,7 +23,7 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
   useEffect(() => {
     if(!getJWT()) navigate('/login'); 
     getChats();
-  });
+  },[]);
 
   return (
     <ChatContext.Provider value={{ chats }}>

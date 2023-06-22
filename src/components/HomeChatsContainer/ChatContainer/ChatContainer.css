@@ -1,0 +1,5 @@
+.chat-grid{
+    grid-column: 2 / 4;
+    grid-row: 1 / 3;
+    border: 1px solid grey;
+}
