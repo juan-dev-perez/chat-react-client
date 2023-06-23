@@ -6,7 +6,7 @@ import MessagesContainer from './MessagesContainer/MessagesContainer';
 
 export default function ChatContainer() {
 
-  const { activeChat, otherUser, user } = useChat();  
+  const { activeChat, user } = useChat();  
   
   
   if((Object.entries(activeChat).length === 0)){
@@ -16,13 +16,11 @@ export default function ChatContainer() {
       </div>
     )
   }
-  console.log(otherUser);
-  
 
   return (
     <div className="chat-grid">
       <InfoOtherUser/>
-      <MessagesContainer activeChat={activeChat} otherUser={otherUser} user={user} />
+      <MessagesContainer activeChat={activeChat} user={user} />
       <InputMessage/>
     </div>
   )

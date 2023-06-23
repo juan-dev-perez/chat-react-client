@@ -6,7 +6,7 @@ export interface ChatContextValue {
   activeChat: Chat;
   user: UserPartial;
   selectChat: (chat:Chat, otherUser: UserPartial | undefined) => void;
-  otherUser: UserPartial | undefined
+  otherUser: UserPartial | undefined;
 }
 
 export interface Props {
@@ -25,4 +25,9 @@ export interface Chat{
     _id?: string;
     users?: string[];
     messages?: Message[];
+}
+
+export interface NewMessage{
+  receivingUser: string | undefined;
+  message: string;
 }

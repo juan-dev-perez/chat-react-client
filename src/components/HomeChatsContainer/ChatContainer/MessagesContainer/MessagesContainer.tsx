@@ -1,26 +1,28 @@
 import { Chat } from "../../../../interfaces/context.interfaces"
 import { UserPartial } from "../../../../interfaces/user.interface";
+import './MessagesContainer.css';
 
 interface Props{
     activeChat:Chat;
-    otherUser:UserPartial | undefined;
     user: UserPartial;
 }
 
-export default function MessagesContainer({activeChat, otherUser, user}:Props) {
-    console.log(activeChat,otherUser,user);
+export default function MessagesContainer({activeChat, user}:Props) {
 
-    const getName = (id: string) => {
-        if(user._id === id) return user.fullName
-        return otherUser?.fullName;
+    const getUser = (id: string) => {
+        if(user._id === id) return 'right'
+        return 'left';
     }
     
   return (
-    <div>
+    <div className="chats-container">
         {
             activeChat.messages?.map( message => (
-                <div key={message._id}>
-                    <span>{getName(message.sendingUser)}: </span>
+                <div key={message._id} style={{
+                    textAlign:getUser(message.sendingUser),
+                    margin: 20,
+                    bottom:'0px'
+                }}>
                     <span>{message.message}</span>
                 </div>
             ))
