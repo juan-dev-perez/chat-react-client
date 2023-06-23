@@ -10,3 +10,7 @@ export interface User{
 }
 
 export type UserLogin = Omit<User, '_id'|'fullName'|'phone'|'age'|'photo'|'isActive'>;
+
+export type UserChat = Omit<User, 'password'>;
+
+export type UserPartial = Partial<UserChat>;

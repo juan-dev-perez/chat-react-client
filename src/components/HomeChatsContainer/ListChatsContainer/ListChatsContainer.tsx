@@ -6,7 +6,6 @@ import './ListChatsContainer.css';
 export default function ListChatsContainer() {
 
   const { chats } = useChat();
-  console.log(chats);
 
   return (
     <div className="list-chats-grid">
