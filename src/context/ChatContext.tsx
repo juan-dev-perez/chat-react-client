@@ -4,6 +4,7 @@ import { Chat, ChatContextValue, Props } from "../interfaces/context.interfaces"
 import { getAllChats } from "../api/api";
 import { getJWT } from "../common/auth-cookie";
 import { UserPartial, UserChat } from "../interfaces/user.interface";
+import { connectToServer, socket } from "../websockets/socket";
 
 export const ChatContext = createContext<ChatContextValue>({
   chats: [],
@@ -34,12 +35,26 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
     setChats(data.chats);
     setUsers(data.users);
     setUser(data.user);
-  }  
+    setTimeout(() => {
+      console.log(chats);
+    },2000) 
+    
+  }
 
   useEffect(() => {
-    if(!getJWT()) navigate('/login'); 
+    if(!getJWT()) return navigate('/login'); 
+    connectToServer();
     getChats();
+
+    socket.on('message-from-server', (chat:Chat) => {
+      setActiveChat(chat);
+    })
+
   },[]);
+
+  useEffect( () => {
+    setChats( chats.map(oneChat => oneChat._id === activeChat._id ? activeChat : oneChat));
+  },[activeChat]);
 
   return (
     <ChatContext.Provider value={{ chats, users, user, activeChat, selectChat, otherUser }}>
