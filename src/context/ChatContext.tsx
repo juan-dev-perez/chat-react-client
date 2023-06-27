@@ -34,11 +34,7 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
     const { data } = await getAllChats(getJWT());
     setChats(data.chats);
     setUsers(data.users);
-    setUser(data.user);
-    setTimeout(() => {
-      console.log(chats);
-    },2000) 
-    
+    setUser(data.user);    
   }
 
   useEffect(() => {
