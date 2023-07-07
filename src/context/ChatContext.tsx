@@ -41,16 +41,15 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
     if(!getJWT()) return navigate('/login'); 
     connectToServer();
     getChats();
-
-    socket.on('message-from-server', (chat:Chat) => {
-      setActiveChat(chat);
-    })
-
   },[]);
 
   useEffect( () => {
-    setChats( chats.map(oneChat => oneChat._id === activeChat._id ? activeChat : oneChat));
-  },[activeChat]);
+    if(socket){
+      socket.on('message-from-server', (chat:Chat) => {
+        setChats( chats.map(oneChat => oneChat._id === chat._id ? chat : oneChat));
+      })
+    }
+  },[chats]);
 
   return (
     <ChatContext.Provider value={{ chats, users, user, activeChat, selectChat, otherUser }}>

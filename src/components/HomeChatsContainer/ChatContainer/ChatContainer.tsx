@@ -6,7 +6,7 @@ import MessagesContainer from './MessagesContainer/MessagesContainer';
 
 export default function ChatContainer() {
 
-  const { activeChat, user } = useChat();  
+  const { activeChat, user } = useChat(); 
 
   if((Object.entries(activeChat).length === 0)){
     return (
