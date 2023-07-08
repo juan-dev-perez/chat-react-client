@@ -1,3 +1,4 @@
+import Box from "@mui/material/Box";
 import { useChat } from "../../../../context/useChat";
 
 export default function InfoOtherUser() {
@@ -5,8 +6,8 @@ export default function InfoOtherUser() {
   const { otherUser } = useChat();
 
   return (
-    <div>
+    <Box borderBottom={1}>
       {otherUser?.fullName}
-    </div>
+    </Box>
   )
 }

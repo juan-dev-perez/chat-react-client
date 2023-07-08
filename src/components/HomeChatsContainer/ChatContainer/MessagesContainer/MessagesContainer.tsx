@@ -1,16 +1,8 @@
 import { useChat } from "../../../../context/useChat";
-import { Chat } from "../../../../interfaces/context.interfaces"
-import { UserPartial } from "../../../../interfaces/user.interface";
-import './MessagesContainer.css';
 
-interface Props{
-    activeChat:Chat;
-    user: UserPartial;
-}
+export default function MessagesContainer() {
 
-export default function MessagesContainer({activeChat, user}:Props) {
-
-    const { chats } = useChat();
+    const { activeChat, user, chats } = useChat(); 
     const chat = chats.find(oneChat => oneChat._id === activeChat._id);
 
     const getUser = (id: string) => {

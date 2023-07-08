@@ -1,5 +1,4 @@
 import { useChat } from '../../../context/useChat';
-import './ProfileContainer.css';
 
 export default function ProfileContainer() {
 

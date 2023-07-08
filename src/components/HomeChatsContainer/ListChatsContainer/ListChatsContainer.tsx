@@ -1,7 +1,5 @@
 import { useChat } from '../../../context/useChat';
 import ChatItem from './ChatItem/ChatItem';
-import './ListChatsContainer.css';
-
 
 export default function ListChatsContainer() {
 
