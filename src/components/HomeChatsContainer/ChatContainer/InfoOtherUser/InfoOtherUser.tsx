@@ -6,7 +6,7 @@ export default function InfoOtherUser() {
   const { otherUser } = useChat();
 
   return (
-    <Box borderBottom={1}>
+    <Box>
       {otherUser?.fullName}
     </Box>
   )
