@@ -6,6 +6,9 @@ import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import { register } from "../../api/api";
 import { saveJWT, getJWT } from "../../common/auth-cookie";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
 
 
 export default function Register() {
@@ -36,32 +39,130 @@ export default function Register() {
     }
 
   return (
-    <Container>
-      <form onSubmit={handleSubmit}>
-        <FormControl variant="standard">
-          <Input type="email" name="email" placeholder="Email" onChange={handleChange}/>
-        </FormControl>
 
-        <FormControl variant="standard">
-          <Input type="password" name="password" placeholder="Password" onChange={handleChange} />
-        </FormControl>
+    <Container sx={{
+      display:'flex',
+      justifyContent:'center',
+      alignItems: 'center',
+    }}>
+      <Box 
+        component="form"
+        onSubmit={handleSubmit}
+        bgcolor={'white'}
+        sx={{
+          padding:4,
+          boxShadow:3,
+          borderRadius:3,
+          marginTop:20,
+          maxWidth:450
+        }}
+      >
+        <Typography variant='h4' sx={{
+          marginTop:2,
+          textAlign: 'center',
+          color: 'text.secondary',
+        }}>
+          Chat App
+        </Typography>
 
-        <FormControl variant="standard">
-          <Input type="text" name="fullName" placeholder="Full name" onChange={handleChange} />
-        </FormControl>
+        <Typography variant='subtitle1' sx={{
+          marginBottom:2,
+          textAlign: 'center',
+          color: 'text.secondary',
+        }}>
+          Sing In
+        </Typography>
 
-        <FormControl variant="standard">
-          <Input type="phone" name="phone" placeholder="Phone" onChange={handleChange} />
-        </FormControl>
+        <TextField
+          fullWidth
+          variant='standard'
+          type="email"
+          name="email"
+          label="Email"
+          onChange={handleChange}
+          required
+          sx={{marginY:1}}
+        />
 
-        <FormControl variant="standard">
-          <Input type="number" name="age" placeholder="Age" onChange={handleChange} />
-        </FormControl>
+        <TextField 
+          fullWidth 
+          variant='standard' 
+          type="password" 
+          name="password" 
+          label="Password" 
+          onChange={handleChange} 
+          required
+          sx={{marginY:1}}
+        />
 
-        <FormControl variant="standard">
-          <Button type="submit" variant="contained">Register</Button>
-        </FormControl>
-      </form>
+        {/* TO DO: HACER VALIDACION PARA QUE REPITA EL PASSWORD */}
+        {/* <TextField 
+          fullWidth 
+          variant='standard' 
+          type="password" 
+          // name="password" 
+          label="Password" 
+          // onChange={handleChange} 
+          required
+          sx={{marginY:1}}
+        /> */}
+
+        <TextField 
+          fullWidth 
+          variant='standard' 
+          type="text" 
+          name="fullName" 
+          label="Full Name" 
+          onChange={handleChange} 
+          required
+          sx={{marginY:1}}
+        />
+
+        <TextField 
+          fullWidth 
+          variant='standard' 
+          type="phone" 
+          name="phone" 
+          label="Phone Number" 
+          onChange={handleChange} 
+          required
+          sx={{marginY:1}}
+        />
+
+        <TextField 
+          fullWidth 
+          variant='standard' 
+          type="number" 
+          name="age" 
+          label="Age" 
+          onChange={handleChange} 
+          required
+          sx={{marginY:1}}
+        />
+
+        <Button 
+          type="submit" 
+          variant="contained"
+          sx={{
+            marginTop:3,
+            marginBottom:1
+          }}
+        >
+          Create account
+        </Button>
+
+        <Button
+          variant="outlined"
+          onClick={() => navigate('/login')}
+          sx={{
+            marginTop:3,
+            marginBottom:1,
+            marginLeft:3
+          }}
+        >
+          Go to log in
+        </Button>
+      </Box>
     </Container>
   )
 }

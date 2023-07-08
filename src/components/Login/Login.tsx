@@ -2,10 +2,11 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import FormControl from "@mui/material/FormControl";
-import Input from "@mui/material/Input";
+import Box from "@mui/material/Box";
 import { login } from "../../api/api";
 import { saveJWT, getJWT } from '../../common/auth-cookie';
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
 
 export default function Login() {
 
@@ -32,20 +33,82 @@ export default function Login() {
     }
 
   return (
-    <Container>
-      <form onSubmit={handleSubmit}>
-        <FormControl variant="standard">
-          <Input type="email" name="email" placeholder="Email" onChange={handleChange}/>
-        </FormControl>
+    <Container sx={{
+      display:'flex',
+      justifyContent:'center',
+      alignItems: 'center',
+    }}>
+      <Box 
+        component="form"
+        onSubmit={handleSubmit}
+        bgcolor={'white'}
+        sx={{
+          padding:4,
+          boxShadow:3,
+          borderRadius:3,
+          marginTop:20,
+          maxWidth:450
+        }}
+      >
+        <Typography variant='h4' sx={{
+          marginTop:2,
+          textAlign: 'center',
+          color: 'text.secondary',
+        }}>
+          Chat App
+        </Typography>
 
-        <FormControl variant="standard">
-          <Input type="password" name="password" placeholder="Password" onChange={handleChange} />
-        </FormControl>
+        <Typography variant='subtitle1' sx={{
+          marginBottom:2,
+          textAlign: 'center',
+          color: 'text.secondary',
+        }}>
+          Log In
+        </Typography>
 
-        <FormControl variant="standard">
-          <Button type="submit" variant="contained">Log in</Button>
-        </FormControl>
-      </form>
+        <TextField
+          fullWidth
+          variant='standard'
+          type="email"
+          name="email"
+          label="Email"
+          onChange={handleChange}
+          sx={{marginY:1}}
+        />
+
+        <TextField 
+          fullWidth 
+          variant='standard' 
+          type="password" 
+          name="password" 
+          label="Password" 
+          onChange={handleChange} 
+          sx={{marginY:1}}
+        />
+
+        <Button 
+          type="submit" 
+          variant="contained"
+          sx={{
+            marginTop:3,
+            marginBottom:1
+          }}
+        >
+          Log in
+        </Button>
+
+        <Button
+          variant="outlined"
+          onClick={() => navigate('/register')}
+          sx={{
+            marginTop:3,
+            marginBottom:1,
+            marginLeft:3
+          }}
+        >
+          Create new account
+        </Button>
+      </Box>
     </Container>
   )
 }
