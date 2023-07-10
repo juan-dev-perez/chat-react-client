@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { useChat } from "../../../../context/useChat";
 import { Chat } from "../../../../interfaces/context.interfaces";
 import { UserPartial } from '../../../../interfaces/user.interface';
-import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 
 interface Props {
     chat: Chat;
@@ -48,29 +49,28 @@ export default function ChatItem({chat}:Props) {
           height:73
         }}
       >
-        <ListItem secondaryAction={
+        <ListItemSecondaryAction>
           <ListItemText 
             primaryTypographyProps={{fontSize: '13px', color:'textSecondary'}} 
             primary={ getMessageDate() }
-            // secondary={ }
+            // secondary={ } COLOCAR AQUI LAS NOTIFICACIONES DE MENSAJES SIN LEER
           />
-        }>
+        </ListItemSecondaryAction>
 
-          <ListItemAvatar>
-            <Avatar 
-              sx={{ marginRight:1, width:50, height:50 }} 
-              alt={receivingUser?.fullName} 
-              src="/static/images/avatar/1.jpg"
-              />
-          </ListItemAvatar>
+        <ListItemAvatar>
+          <Avatar 
+            sx={{ marginRight:1, width:50, height:50 }} 
+            alt={receivingUser?.fullName} 
+            src="/static/images/avatar/1.jpg"
+            />
+        </ListItemAvatar>
 
-          <ListItemText 
-            sx={{ marginLeft:1 }}
-            primary={ receivingUser?.fullName } 
-            secondary={ chat.messages?.[chat.messages.length - 1].message }
-          />
+        <ListItemText 
+          sx={{ marginLeft:1 }}
+          primary={ receivingUser?.fullName } 
+          secondary={ chat.messages?.[chat.messages.length - 1].message }
+        />
 
-        </ListItem>
       </ListItemButton>
 
       <Divider variant="inset" component="li" />

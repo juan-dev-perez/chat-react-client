@@ -10,3 +10,5 @@ export const saveJWT = (token: string) => {
 }
 
 export const getJWT = () => cookies.get('JWT');
+
+export const deleteJWT = () => cookies.remove('JWT');

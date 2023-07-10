@@ -3,7 +3,6 @@ import { ChatProvider } from "../../context/ChatContext";
 import ChatContainer from "./ChatContainer/ChatContainer";
 import ListChatsContainer from "./ListChatsContainer/ListChatsContainer";
 import ProfileContainer from "./ProfileContainer/ProfileContainer";
-import Divider from "@mui/material/Divider";
 
 export default function HomeChatsContainer() {
 
@@ -20,15 +19,17 @@ export default function HomeChatsContainer() {
         marginY:3,
         boxShadow:3,
         borderRadius:3,
-        gridTemplateRows: '60px 1fr',
+        gridTemplateRows: '100px 1fr',
         gridTemplateColumns: '1fr 1fr 1fr'
       }}>
 
         <Grid item sx={{
           gridColumn: '1 / 2',
           gridRow: '1',
-          borderRight:1,
-          borderColor:'divider'
+          // borderRight:1,
+          borderColor:'divider',
+          bgcolor:'#dadada',
+          borderRadius:'12px 0 0 0'
         }}>
           <ProfileContainer />
         </Grid>

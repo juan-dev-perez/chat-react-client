@@ -1,8 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
-import FormControl from "@mui/material/FormControl";
-import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import { register } from "../../api/api";
 import { saveJWT, getJWT } from "../../common/auth-cookie";

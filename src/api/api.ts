@@ -1,8 +1,8 @@
 import axios from "axios";
-import { User, UserLogin } from '../interfaces/user.interface';
+import { UserRegister, UserLogin } from '../interfaces/user.interface';
 import { NewMessage } from "../interfaces/context.interfaces";
 
-export const register = async (user: User) =>
+export const register = async (user: UserRegister) =>
     await axios.post('http://localhost:3000/api/users/register', user);
 
 export const login = async (userLogin: UserLogin) => 

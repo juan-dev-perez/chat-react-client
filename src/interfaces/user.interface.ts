@@ -1,15 +1,17 @@
 export interface User{
-    _id?: string;
+    _id: string;
     email: string;
     password: string;
     fullName: string;
-    phone?: string;
-    age?: number;
+    phone: string;
+    age: number;
     photo?: string;
-    isActive?: boolean;
+    isActive: boolean;
 }
 
 export type UserLogin = Omit<User, '_id'|'fullName'|'phone'|'age'|'photo'|'isActive'>;
+
+export type UserRegister = Omit<User, '_id'|'isActive'>
 
 export type UserChat = Omit<User, 'password'>;
 

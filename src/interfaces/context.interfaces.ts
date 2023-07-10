@@ -22,9 +22,9 @@ interface Message{
 }
   
 export interface Chat{
-    _id?: string;
-    users?: string[];
-    messages?: Message[];
+    _id: string;
+    users: string[];
+    messages: Message[];
 }
 
 export interface NewMessage{

@@ -10,7 +10,7 @@ export const ChatContext = createContext<ChatContextValue>({
   chats: [],
   users: [],
   user:{},
-  activeChat: {},
+  activeChat: {_id: '', users: [], messages:[]},
   selectChat: () => void{},
   otherUser: {},
 });
@@ -22,7 +22,7 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
   const [chats, setChats] = useState<Chat[]>([]);
   const [users, setUsers] = useState<UserChat[]>([]);
   const [user, setUser] = useState<UserPartial>({});
-  const [activeChat, setActiveChat] = useState<Chat>({});
+  const [activeChat, setActiveChat] = useState<Chat>({_id: '', users: [], messages:[]});
   const [otherUser, setOtherUser] = useState<UserPartial | undefined>({});
 
   const selectChat = (chat: Chat, otherUser:UserPartial | undefined) => {

@@ -7,7 +7,7 @@ export default function ListChatsContainer() {
   const { chats } = useChat();
 
   return (
-    <List component='nav'>
+    <List sx={{ padding:0, margin:0 }}>
       {
         chats.map(chat => (
           <ChatItem chat={chat} key={chat._id}  />
