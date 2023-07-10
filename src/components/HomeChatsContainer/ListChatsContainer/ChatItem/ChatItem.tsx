@@ -5,7 +5,6 @@ import { UserPartial } from '../../../../interfaces/user.interface';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
@@ -31,11 +30,27 @@ export default function ChatItem({chat}:Props) {
   }
 
   const getMessageDate = () => {
-    const date = chat.messages?.[chat.messages.length - 1].updatedAt;
-    const newDate = new Date(date);
+
+    const date: string = chat.messages[chat.messages.length - 1].updatedAt;
+    const messageDate: Date = new Date(date);
+    const currentDate: Date = new Date();
+
+    const daysDifference: number = Math.floor(
+      (currentDate.getTime() - messageDate.getTime()) / (1000 * 60 * 60 * 24)
+    );
+
+    const messageDay: number = messageDate.getDate();
+    const currentDay: number = currentDate.getDate();
+    const dayDif: number = currentDay - messageDay;
+
+    const hour = messageDate.getHours();
+    const min = messageDate.getMinutes().toString().padStart(2, '0');
+
+    if( dayDif === 1 && daysDifference <= 1 )
+      return 'Yesterday';
     
-    const hour = newDate.getHours();
-    const min = newDate.getMinutes();
+    if(daysDifference >= 1)
+      return messageDate.toLocaleDateString();
     
     return `${hour}:${min}`;
   }
