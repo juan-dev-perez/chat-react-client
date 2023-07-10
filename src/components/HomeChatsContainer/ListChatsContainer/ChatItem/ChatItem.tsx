@@ -5,6 +5,9 @@ import { UserPartial } from '../../../../interfaces/user.interface';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
 
 interface Props {
     chat: Chat;
@@ -26,32 +29,51 @@ export default function ChatItem({chat}:Props) {
     return otherUser;
   }
 
+  const getMessageDate = () => {
+    const date = chat.messages?.[chat.messages.length - 1].updatedAt;
+    const newDate = new Date(date);
+    
+    const hour = newDate.getHours();
+    const min = newDate.getMinutes();
+    
+    return `${hour}:${min}`;
+  }
+
   return (
-    <ListItemButton
-      onClick={() => selectChat(chat, receivingUser)}
-      selected={receivingUser?._id === otherUser?._id}
-      sx={{
-        height:73
-      }}
-    >
-      <Avatar 
-        sx={{ marginRight:1, width:50, height:50 }} 
-        alt={receivingUser?.fullName} 
-        src="/static/images/avatar/1.jpg"
-      />
+    <>
+      <ListItemButton
+        onClick={() => selectChat(chat, receivingUser)}
+        selected={receivingUser?._id === otherUser?._id}
+        sx={{
+          height:73
+        }}
+      >
+        <ListItem secondaryAction={
+          <ListItemText 
+            primaryTypographyProps={{fontSize: '13px', color:'textSecondary'}} 
+            primary={ getMessageDate() }
+            // secondary={ }
+          />
+        }>
 
-      <ListItemText primary={
-        receivingUser?.fullName
-      } />
+          <ListItemAvatar>
+            <Avatar 
+              sx={{ marginRight:1, width:50, height:50 }} 
+              alt={receivingUser?.fullName} 
+              src="/static/images/avatar/1.jpg"
+              />
+          </ListItemAvatar>
 
-      <ListItemText secondary={
-        chat.messages?.[chat.messages.length - 1].message
-      } />
+          <ListItemText 
+            sx={{ marginLeft:1 }}
+            primary={ receivingUser?.fullName } 
+            secondary={ chat.messages?.[chat.messages.length - 1].message }
+          />
 
-      <ListItemText secondary={
-        chat.messages?.[chat.messages.length - 1].updatedAt
-      } />
-      
-    </ListItemButton>
+        </ListItem>
+      </ListItemButton>
+
+      <Divider variant="inset" component="li" />
+    </>
   )
 }
