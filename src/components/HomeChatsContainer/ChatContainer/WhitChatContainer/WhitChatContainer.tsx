@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
-import InfoOtherUser from "../InfoOtherUser/InfoOtherUser";
-import MessagesContainer from "../MessagesContainer/MessagesContainer";
-import InputMessage from "../InputMessage/InputMessage";
+import InputMessage from "./InputMessage/InputMessage";
+import InfoOtherUser from "./InfoOtherUser/InfoOtherUser";
+import MessagesContainer from "./MessagesContainer/MessagesContainer";
 
 export default function WhitChatContainer() {
   

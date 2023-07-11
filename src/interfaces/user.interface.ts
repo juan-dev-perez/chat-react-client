@@ -15,4 +15,4 @@ export type UserRegister = Omit<User, '_id'|'isActive'>
 
 export type UserChat = Omit<User, 'password'>;
 
-export type UserPartial = Partial<UserChat>;
+// export type UserPartial = Partial<UserChat>;

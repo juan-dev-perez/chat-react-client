@@ -3,16 +3,31 @@ import { useNavigate } from "react-router-dom";
 import { Chat, ChatContextValue, Props } from "../interfaces/context.interfaces";
 import { getAllChats } from "../api/api";
 import { getJWT } from "../common/auth-cookie";
-import { UserPartial, UserChat } from "../interfaces/user.interface";
+import { UserChat } from "../interfaces/user.interface";
 import { connectToServer, socket } from "../websockets/socket";
+
+const initialUser = {
+  _id: '',
+  email: '',
+  fullName: '',
+  phone: '',
+  age: 0,
+  isActive: false
+};
+
+const initialChat = {
+  _id: '',
+  users: [],
+  messages: []
+}
 
 export const ChatContext = createContext<ChatContextValue>({
   chats: [],
   users: [],
-  user:{},
-  activeChat: {_id: '', users: [], messages:[]},
+  user: initialUser,
+  activeChat: initialChat,
   selectChat: () => void{},
-  otherUser: {},
+  otherUser: initialUser,
 });
 
 export const ChatProvider: React.FC<Props> = ({ children }) => {
@@ -21,11 +36,11 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
     
   const [chats, setChats] = useState<Chat[]>([]);
   const [users, setUsers] = useState<UserChat[]>([]);
-  const [user, setUser] = useState<UserPartial>({});
-  const [activeChat, setActiveChat] = useState<Chat>({_id: '', users: [], messages:[]});
-  const [otherUser, setOtherUser] = useState<UserPartial | undefined>({});
+  const [activeChat, setActiveChat] = useState<Chat>( initialChat );
+  const [user, setUser] = useState<UserChat>( initialUser );
+  const [otherUser, setOtherUser] = useState<UserChat>( initialUser );
 
-  const selectChat = (chat: Chat, otherUser:UserPartial | undefined) => {
+  const selectChat = (chat: Chat, otherUser:UserChat) => {
     setActiveChat(chat);
     setOtherUser(otherUser);
   }

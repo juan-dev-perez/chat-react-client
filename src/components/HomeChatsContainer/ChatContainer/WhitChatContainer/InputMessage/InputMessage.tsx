@@ -3,10 +3,10 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import Input from "@mui/material/Input";
-import { newMessage } from "../../../../api/api";
-import { getJWT } from "../../../../common/auth-cookie";
-import { useChat } from "../../../../context/useChat";
-import { emitFromClient } from "../../../../websockets/socket";
+import { newMessage } from "../../../../../api/api";
+import { getJWT } from "../../../../../common/auth-cookie";
+import { useChat } from "../../../../../context/useChat";
+import { emitFromClient } from "../../../../../websockets/socket";
 
 export default function InputMessage() {
 
@@ -17,7 +17,7 @@ export default function InputMessage() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const newMess = {
-        receivingUser: otherUser?._id,
+        receivingUser: otherUser._id,
         message
       }
       const { data } = await newMessage(newMess, getJWT());

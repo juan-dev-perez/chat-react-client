@@ -9,7 +9,7 @@ export default function ChatContainer() {
   return (
     <>
       {
-        (Object.entries(activeChat).length === 0) ?
+        activeChat._id === '' ?
           <WhitoutChatContainer/>
         :
           <WhitChatContainer/>

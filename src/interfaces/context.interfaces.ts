@@ -1,12 +1,12 @@
-import { UserPartial, UserChat } from "./user.interface";
+import { UserChat } from "./user.interface";
 
 export interface ChatContextValue {
   chats: Chat[];
   users: UserChat[];
   activeChat: Chat;
-  user: UserPartial;
-  selectChat: (chat:Chat, otherUser: UserPartial | undefined) => void;
-  otherUser: UserPartial | undefined;
+  user: UserChat;
+  selectChat: (chat:Chat, otherUser: UserChat) => void;
+  otherUser: UserChat;
 }
 
 export interface Props {
@@ -28,6 +28,6 @@ export interface Chat{
 }
 
 export interface NewMessage{
-  receivingUser: string | undefined;
+  receivingUser: string;
   message: string;
 }
