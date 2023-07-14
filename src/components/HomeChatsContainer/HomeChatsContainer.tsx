@@ -26,8 +26,6 @@ export default function HomeChatsContainer() {
         <Grid item sx={{
           gridColumn: '1 / 2',
           gridRow: '1',
-          // borderRight:1,
-          borderColor:'divider',
           bgcolor:'#dadada',
           borderRadius:'12px 0 0 0'
         }}>

@@ -28,6 +28,7 @@ export const ChatContext = createContext<ChatContextValue>({
   activeChat: initialChat,
   selectChat: () => void{},
   otherUser: initialUser,
+  closeChat: () => void{},
 });
 
 export const ChatProvider: React.FC<Props> = ({ children }) => {
@@ -52,6 +53,11 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
     setUser(data.user);    
   }
 
+  const closeChat = () => {
+    setActiveChat(initialChat);
+    setOtherUser(initialUser);
+  }
+
   useEffect(() => {
     if(!getJWT()) return navigate('/login'); 
     connectToServer();
@@ -67,7 +73,7 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
   },[chats]);
 
   return (
-    <ChatContext.Provider value={{ chats, users, user, activeChat, selectChat, otherUser }}>
+    <ChatContext.Provider value={{ chats, users, user, activeChat, selectChat, otherUser, closeChat }}>
         {children}
     </ChatContext.Provider>
   );

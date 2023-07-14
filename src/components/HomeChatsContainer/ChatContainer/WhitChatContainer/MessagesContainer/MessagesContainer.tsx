@@ -1,37 +1,25 @@
+import { useRef, useEffect } from 'react';
+import Box from "@mui/material/Box";
 import { useChat } from "../../../../../context/useChat";
-import WhitoutChatContainer from "../../WhitoutChatContainer/WhitoutChatContainer";
+import MessageItem from './MessageItem/MessageItem';
 
 export default function MessagesContainer() {
 
-    const { activeChat, user, chats } = useChat(); 
+    const { activeChat, chats } = useChat(); 
     const chat = chats.find(oneChat => oneChat._id === activeChat._id);
+    const messageContainerRef = useRef<HTMLDivElement>(null);
 
-    const getUser = (id: string) => {
-        if(user._id === id) return 'right'
-        return 'left';
-    }
-
-    if(!chat){
-        return(
-            <>
-                <WhitoutChatContainer/> 
-            </>
-        )
-    }
+    useEffect(() => {
+        if (messageContainerRef.current) {
+          messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+        }
+    });
     
     return (
-        <div className="chats-container">
-            {
-                chat.messages.map( message => (
-                    <div key={message._id} style={{
-                        textAlign:getUser(message.sendingUser),
-                        margin: 20,
-                        bottom:'0px'
-                    }}>
-                        <span>{message.message}</span>
-                    </div>
-                ))
+        <Box ref={messageContainerRef} sx={{ overflowY: 'auto', paddingX: 5 }}>
+            {   
+                chat && chat.messages.map( message => ( <MessageItem message={message} key={message._id}/> ) )
             }
-        </div>
+        </Box>
     )
 }

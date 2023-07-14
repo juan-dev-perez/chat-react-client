@@ -38,6 +38,8 @@ export default function ChatItem({chat}:Props) {
   }
 
   const getMessageDate = () => {
+  
+    if(chat.messages.length === 0 ) return;
 
     const date: string = chat.messages[chat.messages.length - 1].updatedAt;
     const messageDate: Date = new Date(date);
@@ -91,12 +93,14 @@ export default function ChatItem({chat}:Props) {
         <ListItemText 
           sx={{ marginLeft:1 }}
           primary={ receivingUser.fullName } 
-          secondary={ chat.messages[chat.messages.length - 1].message }
+          secondary={ 
+            chat.messages.length !== 0 && chat.messages[chat.messages.length - 1].message 
+          }
         />
 
       </ListItemButton>
 
-      <Divider variant="inset" component="li" />
+      <Divider variant="inset" component="li" sx={{marginRight:1}} />
     </>
   )
 }

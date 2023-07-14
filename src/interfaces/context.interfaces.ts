@@ -7,13 +7,14 @@ export interface ChatContextValue {
   user: UserChat;
   selectChat: (chat:Chat, otherUser: UserChat) => void;
   otherUser: UserChat;
+  closeChat: () => void;
 }
 
 export interface Props {
   children: React.ReactNode;
 }
 
-interface Message{
+export interface Message{
     _id: string;
     sendingUser: string;
     message: string;
