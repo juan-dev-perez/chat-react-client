@@ -10,7 +10,7 @@ export default function WhitChatContainer() {
       sx={{
         display:'grid',
         direction:'row',
-        gridTemplateRows: '100px 1fr 60px',
+        gridTemplateRows: '100px 1fr 70px',
         gridTemplateColumns: '1fr',
         height:'100%'
     }}>

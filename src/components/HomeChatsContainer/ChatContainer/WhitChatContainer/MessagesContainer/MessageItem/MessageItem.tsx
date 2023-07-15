@@ -34,8 +34,8 @@ export default function MessageItem({message}:Props) {
                 boxShadow:1,
                 borderRadius: 
                     getUserSide(message.sendingUser) ? 
-                        '20px 20px 0 20px' :
-                        '20px 20px 20px 0px',
+                        '18px 18px 0 18px' :
+                        '18px 18px 18px 0px',
                 maxWidth:'65%',
             }}
         >
