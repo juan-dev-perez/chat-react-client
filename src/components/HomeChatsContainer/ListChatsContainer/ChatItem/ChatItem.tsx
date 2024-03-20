@@ -78,7 +78,10 @@ export default function ChatItem({chat}:Props) {
           <ListItemText 
             primaryTypographyProps={{fontSize: '13px', color:'textSecondary'}} 
             primary={ getMessageDate() }
-            // secondary={ } COLOCAR AQUI LAS NOTIFICACIONES DE MENSAJES SIN LEER
+            
+            // TODO: validar cuando se reciban mensajes nuevos sin leer.
+            // secondary={ ( activeChat._id !== chat._id && chat.messages.length // validar cuando hayan mensajes nuevos //  ) && '{X}'
+            //  }
           />
         </ListItemSecondaryAction>
 
