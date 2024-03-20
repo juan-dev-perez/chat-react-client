@@ -74,7 +74,7 @@ export default function ChatItem({chat}:Props) {
           height:73
         }}
       >
-        <ListItemSecondaryAction>
+        {<ListItemSecondaryAction>
           <ListItemText 
             primaryTypographyProps={{fontSize: '13px', color:'textSecondary'}} 
             primary={ getMessageDate() }
@@ -83,7 +83,7 @@ export default function ChatItem({chat}:Props) {
             // secondary={ ( activeChat._id !== chat._id && chat.messages.length // validar cuando hayan mensajes nuevos //  ) && '{X}'
             //  }
           />
-        </ListItemSecondaryAction>
+        </ListItemSecondaryAction>}
 
         <ListItemAvatar>
           <Avatar 
