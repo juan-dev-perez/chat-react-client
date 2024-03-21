@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import UpdateProfileModal from "../UpdateProfileModal/UpdateProfileModal";
 
 export default function ProfileSettings() {
   const [open, setOpen] = useState(false);
@@ -18,10 +19,12 @@ export default function ProfileSettings() {
       </Button>
       <Drawer open={open} onClose={toggleDrawer(false)}>
         <Box
-          sx={{ width: 300 }}
+          sx={{ width: 350 }}
           role="presentation"
-          onClick={toggleDrawer(false)}
+        //   onClick={toggleDrawer(false)}
+        //TODO: hacer boton para cerrar el modal
         >
+          <UpdateProfileModal />
         </Box>
       </Drawer>
     </>

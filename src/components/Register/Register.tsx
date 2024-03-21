@@ -93,7 +93,7 @@ export default function Register() {
           sx={{marginY:1}}
         />
 
-        {/* TO DO: HACER VALIDACION PARA QUE REPITA EL PASSWORD */}
+        {/* TODO: HACER VALIDACION PARA QUE REPITA EL PASSWORD */}
         {/* <TextField 
           fullWidth 
           variant='standard' 
