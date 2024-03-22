@@ -8,6 +8,7 @@ export interface ChatContextValue {
   selectChat: (chat:Chat, otherUser: UserChat) => void;
   otherUser: UserChat;
   closeChat: () => void;
+  updateUser: (user: UserChat) => void;
 }
 
 export interface Props {

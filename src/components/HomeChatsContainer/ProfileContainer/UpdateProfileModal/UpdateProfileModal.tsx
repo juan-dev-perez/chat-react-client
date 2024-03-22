@@ -4,9 +4,13 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useChat } from "../../../../context/useChat";
+import { updateProfile } from "../../../../api/api";
+import { getJWT } from "../../../../common/auth-cookie";
 
-export default function UpdateProfileModal() {
-  const { user } = useChat();
+type close = () => void;
+
+export default function UpdateProfileModal({ close }: { close: close }) {
+  const { user, updateUser: userUpdate } = useChat();
 
   const [updateUser, setUpdateUser] = useState({
     email: user.email,
@@ -20,19 +24,34 @@ export default function UpdateProfileModal() {
     setUpdateUser({ ...updateUser, [e.target.name]: e.target.value });
   };
 
-// TODO: hacer la funcion para actualizar los datos 
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const { data } = await updateProfile(
+        { ...updateUser, age: +updateUser.age },
+        getJWT()
+      );
+      userUpdate(data);
+      close();
 
-  //   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-  //     e.preventDefault();
-  //     const { data } = await register({ ...newUser, age: +newUser.age });
-  //     saveJWT(data.token);
-  //   };
-//   console.log(updateUser);
+      //TODO: poner notificacion para caso exitoso y para fallido
+      // <Snackbar
+      //   anchorOrigin={{ vertical: "top", horizontal: "left" }}
+      //   open={notification}
+      //   message="I love snacks"
+      //   autoHideDuration={100}
+      // />
+
+    } catch (error) {
+      close();
+      alert("Error al actualizar");
+    }
+  };
 
   return (
     <Box
       component="form"
-      // onSubmit={handleSubmit}
+      onSubmit={handleSubmit}
       bgcolor={"white"}
       sx={{
         padding: 4,
