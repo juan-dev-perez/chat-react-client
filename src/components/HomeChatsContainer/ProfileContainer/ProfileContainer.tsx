@@ -26,8 +26,8 @@ export default function ProfileContainer() {
         <ListItemAvatar>
           <Avatar
             sx={{ marginRight: 1, width: 70, height: 70 }}
-            alt={user.fullName}
-            src="/static/images/avatar/1.jpg"
+            alt={`${user.fullName}'s profile photo`}
+            src={user.photo}
           />
         </ListItemAvatar>
 

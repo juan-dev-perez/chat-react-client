@@ -37,7 +37,7 @@ export default function InfoOtherUser() {
           <Avatar 
             sx={{ marginRight:1, width:70, height:70 }} 
             alt={otherUser.fullName} 
-            src="/static/images/avatar/1.jpg"
+            src={otherUser.photo}
             />
         </ListItemAvatar>
 

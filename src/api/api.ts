@@ -1,5 +1,9 @@
 import axios from "axios";
-import { UserRegister, UserLogin, UserPartial } from "../interfaces/user.interface";
+import {
+  UserRegister,
+  UserLogin,
+  UserPartial,
+} from "../interfaces/user.interface";
 import { NewMessage } from "../interfaces/context.interfaces";
 
 export const register = async (user: UserRegister) =>
@@ -20,5 +24,10 @@ export const newMessage = async (message: NewMessage, jwt: string) =>
 
 export const updateProfile = async (user: UserPartial, jwt: string) =>
   await axios.patch(`http://localhost:3000/api/users`, user, {
+    headers: { Authorization: `Bearer ${jwt}` },
+  });
+
+export const uploadUserPhoto = async (photo: FormData, jwt: string) =>
+  await axios.post("http://localhost:3000/api/photos", photo, {
     headers: { Authorization: `Bearer ${jwt}` },
   });

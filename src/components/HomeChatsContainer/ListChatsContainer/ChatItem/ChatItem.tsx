@@ -89,7 +89,7 @@ export default function ChatItem({chat}:Props) {
           <Avatar 
             sx={{ marginRight:1, width:50, height:50 }} 
             alt={receivingUser.fullName} 
-            src="/static/images/avatar/1.jpg"
+            src={receivingUser.photo}
             />
         </ListItemAvatar>
 

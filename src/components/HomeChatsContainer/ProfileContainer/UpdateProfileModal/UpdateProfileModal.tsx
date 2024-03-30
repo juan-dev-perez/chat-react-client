@@ -4,14 +4,15 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useChat } from "../../../../context/useChat";
-import { updateProfile } from "../../../../api/api";
+import { updateProfile, uploadUserPhoto } from "../../../../api/api";
 import { getJWT } from "../../../../common/auth-cookie";
+import Avatar from "@mui/material/Avatar";
 
 type close = () => void;
 
 export default function UpdateProfileModal({ close }: { close: close }) {
   const { user, updateUser: userUpdate } = useChat();
-
+  const [photo, setPhoto] = useState<FormData | null>(null);
   const [updateUser, setUpdateUser] = useState({
     email: user.email,
     fullName: user.fullName,
@@ -20,15 +21,37 @@ export default function UpdateProfileModal({ close }: { close: close }) {
     photo: user.photo,
   });
 
+  const handleGetPhoto = (e: ChangeEvent<HTMLInputElement>) => {
+    const photoValue = e.target.files;
+    if (photoValue && photoValue.length > 0) {
+      const formData = new FormData();
+      formData.append("photo", photoValue[0]);
+      setPhoto(formData);
+    }
+  };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUpdateUser({ ...updateUser, [e.target.name]: e.target.value });
   };
 
+  const getUrlPhotoUser = async () => {
+    if (photo) {
+      try {
+        const { data } = await uploadUserPhoto(photo, getJWT());
+        return data;
+      } catch (error) {
+        alert(error);
+      }
+    }
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const urlPhoto = await getUrlPhotoUser();
+
     try {
       const { data } = await updateProfile(
-        { ...updateUser, age: +updateUser.age },
+        { ...updateUser, age: +updateUser.age, photo: urlPhoto },
         getJWT()
       );
       userUpdate(data);
@@ -41,7 +64,6 @@ export default function UpdateProfileModal({ close }: { close: close }) {
       //   message="I love snacks"
       //   autoHideDuration={100}
       // />
-
     } catch (error) {
       close();
       alert("Error al actualizar");
@@ -67,6 +89,24 @@ export default function UpdateProfileModal({ close }: { close: close }) {
       >
         Update Profile
       </Typography>
+
+        {/* TODO: Poner mas bonito el avatar y el boton de carga de imagen */}
+        {/* TODO: Tambien poner un boton para eliminar la foto */}
+      <Avatar
+        alt="User's photo"
+        src={user.photo}
+        sx={{ width: 100, height: 100 }}
+      />
+
+      <TextField
+        fullWidth
+        variant="standard"
+        type="file"
+        name="photo"
+        // label="Photo"
+        onChange={handleGetPhoto}
+        sx={{ marginY: 1 }}
+      />
 
       <TextField
         fullWidth
@@ -115,18 +155,6 @@ export default function UpdateProfileModal({ close }: { close: close }) {
         required
         sx={{ marginY: 1 }}
       />
-
-      {/* TODO: hacer el modulo para cargar imagenes en el servidor */}
-      {/* <TextField
-        fullWidth
-        variant="standard"
-        type="number"
-        name="age"
-        label="Age"
-        //   onChange={handleChange}
-        required
-        sx={{ marginY: 1 }}
-      /> */}
 
       <Button
         type="submit"
