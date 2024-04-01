@@ -34,6 +34,11 @@ export const ChatContext = createContext<ChatContextValue>({
   otherUser: initialUser,
   closeChat: () => void {},
   updateUser: () => void {},
+  showNotification: false,
+  successNotification: false,
+  messageNotification: '',
+  closeNotification: () => void {},
+  renderNotification: () => void {},
 });
 
 export const ChatProvider: React.FC<Props> = ({ children }) => {
@@ -44,6 +49,10 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
   const [activeChat, setActiveChat] = useState<Chat>(initialChat);
   const [user, setUser] = useState<UserChat>(initialUser);
   const [otherUser, setOtherUser] = useState<UserChat>(initialUser);
+  const [showNotification, setShowNotification] = useState<boolean>(false);
+  const [successNotification, setSuccessNotification] =
+    useState<boolean>(false);
+  const [messageNotification, setMessageNotification] = useState<string>("");
 
   const selectChat = (chat: Chat, otherUser: UserChat) => {
     setActiveChat(chat);
@@ -62,10 +71,23 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
     setOtherUser(initialUser);
   };
 
-  const updateUser = (user:UserChat ) => {
+  const updateUser = (user: UserChat) => {
     setUser(user);
   };
 
+  const renderNotification = (
+    show: boolean,
+    success: boolean,
+    message: string
+  ): void => {
+    setShowNotification(show);
+    setSuccessNotification(success);
+    setMessageNotification(message);
+  };
+
+  const closeNotification = (): void => {
+    setShowNotification(false);
+  };
 
   useEffect(() => {
     if (!getJWT()) return navigate("/login");
@@ -94,6 +116,11 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
         otherUser,
         closeChat,
         updateUser,
+        showNotification,
+        successNotification,
+        messageNotification,
+        closeNotification,
+        renderNotification,
       }}
     >
       {children}

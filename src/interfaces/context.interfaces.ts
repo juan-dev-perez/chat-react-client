@@ -9,6 +9,11 @@ export interface ChatContextValue {
   otherUser: UserChat;
   closeChat: () => void;
   updateUser: (user: UserChat) => void;
+  showNotification: boolean;
+  successNotification: boolean;
+  messageNotification: string;
+  closeNotification: () => void;
+  renderNotification: (show: boolean, success: boolean, message: string) => void;
 }
 
 export interface Props {

@@ -11,7 +11,7 @@ import Avatar from "@mui/material/Avatar";
 type close = () => void;
 
 export default function UpdateProfileModal({ close }: { close: close }) {
-  const { user, updateUser: userUpdate } = useChat();
+  const { user, updateUser: userUpdate, renderNotification } = useChat();
   const [photo, setPhoto] = useState<FormData | null>(null);
   const [updateUser, setUpdateUser] = useState({
     email: user.email,
@@ -56,14 +56,7 @@ export default function UpdateProfileModal({ close }: { close: close }) {
       );
       userUpdate(data);
       close();
-
-      //TODO: poner notificacion para caso exitoso y para fallido
-      // <Snackbar
-      //   anchorOrigin={{ vertical: "top", horizontal: "left" }}
-      //   open={notification}
-      //   message="I love snacks"
-      //   autoHideDuration={100}
-      // />
+      renderNotification(true, true, "Profile updated successfully");
     } catch (error) {
       close();
       alert("Error al actualizar");
@@ -90,8 +83,8 @@ export default function UpdateProfileModal({ close }: { close: close }) {
         Update Profile
       </Typography>
 
-        {/* TODO: Poner mas bonito el avatar y el boton de carga de imagen */}
-        {/* TODO: Tambien poner un boton para eliminar la foto */}
+      {/* TODO: Poner mas bonito el avatar y el boton de carga de imagen */}
+      {/* TODO: Tambien poner un boton para eliminar la foto */}
       <Avatar
         alt="User's photo"
         src={user.photo}

@@ -3,10 +3,12 @@ import { ChatProvider } from "../../context/ChatContext";
 import ChatContainer from "./ChatContainer/ChatContainer";
 import ListChatsContainer from "./ListChatsContainer/ListChatsContainer";
 import ProfileContainer from "./ProfileContainer/ProfileContainer";
+import Notification from "../Notification/Notification";
 
 export default function HomeChatsContainer() {
   return (
     <ChatProvider>
+      <Notification />
       <Grid
         container
         bgcolor={"white"}
