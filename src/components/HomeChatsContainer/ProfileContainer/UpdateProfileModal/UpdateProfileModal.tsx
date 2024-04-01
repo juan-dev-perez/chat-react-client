@@ -7,6 +7,7 @@ import { useChat } from "../../../../context/useChat";
 import { updateProfile, uploadUserPhoto } from "../../../../api/api";
 import { getJWT } from "../../../../common/auth-cookie";
 import Avatar from "@mui/material/Avatar";
+import axios, { AxiosError } from "axios";
 
 type close = () => void;
 
@@ -40,7 +41,7 @@ export default function UpdateProfileModal({ close }: { close: close }) {
         const { data } = await uploadUserPhoto(photo, getJWT());
         return data;
       } catch (error) {
-        alert(error);
+        return null;
       }
     }
   };
@@ -50,16 +51,22 @@ export default function UpdateProfileModal({ close }: { close: close }) {
     const urlPhoto = await getUrlPhotoUser();
 
     try {
+      if (urlPhoto === null) throw new Error("Could not upload image");
       const { data } = await updateProfile(
         { ...updateUser, age: +updateUser.age, photo: urlPhoto },
         getJWT()
       );
       userUpdate(data);
       close();
-      renderNotification(true, true, "Profile updated successfully");
-    } catch (error) {
+      renderNotification(true, "Profile updated successfully");
+    } catch (err) {
+      let message = "Image format error or too large";
+      if (axios.isAxiosError(err)) {
+        const error: AxiosError = err;
+        if (error.code === "ERR_NETWORK") message = "Server connection error";
+      }
       close();
-      alert("Error al actualizar");
+      renderNotification(false, message);
     }
   };
 

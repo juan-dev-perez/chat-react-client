@@ -13,7 +13,7 @@ export interface ChatContextValue {
   successNotification: boolean;
   messageNotification: string;
   closeNotification: () => void;
-  renderNotification: (show: boolean, success: boolean, message: string) => void;
+  renderNotification: (success: boolean, message: string) => void;
 }
 
 export interface Props {

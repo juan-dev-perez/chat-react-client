@@ -76,11 +76,10 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
   };
 
   const renderNotification = (
-    show: boolean,
     success: boolean,
     message: string
   ): void => {
-    setShowNotification(show);
+    setShowNotification(true);
     setSuccessNotification(success);
     setMessageNotification(message);
   };
