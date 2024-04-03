@@ -11,14 +11,13 @@ import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
 import ProfileSettings from "./ProfileSettings/ProfileSettings";
 
 export default function ProfileContainer() {
-
   const { user } = useChat();
   const navigate = useNavigate();
 
   const logOut = () => {
     deleteJWT();
     navigate("/login");
-  }
+  };
 
   return (
     <List>
@@ -46,11 +45,9 @@ export default function ProfileContainer() {
           sx={{ marginLeft: 2 }}
         />
 
-        {
-          <ListItemSecondaryAction>
-            <ProfileSettings />
-          </ListItemSecondaryAction>
-        }
+        <ListItemSecondaryAction>
+          <ProfileSettings />
+        </ListItemSecondaryAction>
       </ListItem>
     </List>
   );
