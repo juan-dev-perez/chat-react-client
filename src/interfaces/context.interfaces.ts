@@ -14,6 +14,7 @@ export interface ChatContextValue {
   messageNotification: string;
   closeNotification: () => void;
   renderNotification: (success: boolean, message: string) => void;
+  allUsers: UserChat[]
 }
 
 export interface Props {

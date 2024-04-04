@@ -5,7 +5,7 @@ import {
   ChatContextValue,
   Props,
 } from "../interfaces/context.interfaces";
-import { getAllChats } from "../api/api";
+import { getAllChats, getAllUsers } from "../api/api";
 import { getJWT } from "../common/auth-cookie";
 import { UserChat } from "../interfaces/user.interface";
 import { connectToServer, socket } from "../websockets/socket";
@@ -36,9 +36,10 @@ export const ChatContext = createContext<ChatContextValue>({
   updateUser: () => void {},
   showNotification: false,
   successNotification: false,
-  messageNotification: '',
+  messageNotification: "",
   closeNotification: () => void {},
   renderNotification: () => void {},
+  allUsers: [],
 });
 
 export const ChatProvider: React.FC<Props> = ({ children }) => {
@@ -46,6 +47,7 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
 
   const [chats, setChats] = useState<Chat[]>([]);
   const [users, setUsers] = useState<UserChat[]>([]);
+  const [allUsers, setAllUsers] = useState<UserChat[]>([]);
   const [activeChat, setActiveChat] = useState<Chat>(initialChat);
   const [user, setUser] = useState<UserChat>(initialUser);
   const [otherUser, setOtherUser] = useState<UserChat>(initialUser);
@@ -66,6 +68,11 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
     setUser(data.user);
   };
 
+  const getUsers: () => void = async () => {
+    const { data } = await getAllUsers(getJWT());
+    setAllUsers(data);
+  };
+
   const closeChat = () => {
     setActiveChat(initialChat);
     setOtherUser(initialUser);
@@ -75,10 +82,7 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
     setUser(user);
   };
 
-  const renderNotification = (
-    success: boolean,
-    message: string
-  ): void => {
+  const renderNotification = (success: boolean, message: string): void => {
     setShowNotification(true);
     setSuccessNotification(success);
     setMessageNotification(message);
@@ -92,6 +96,7 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
     if (!getJWT()) return navigate("/login");
     connectToServer();
     getChats();
+    getUsers();
   }, []);
 
   useEffect(() => {
@@ -120,6 +125,7 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
         messageNotification,
         closeNotification,
         renderNotification,
+        allUsers,
       }}
     >
       {children}

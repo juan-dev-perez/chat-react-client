@@ -31,3 +31,8 @@ export const uploadUserPhoto = async (photo: FormData, jwt: string) =>
   await axios.post("http://localhost:3000/api/photos", photo, {
     headers: { Authorization: `Bearer ${jwt}` },
   });
+
+export const getAllUsers = async (jwt: string) =>
+  await axios("http://localhost:3000/api/users", {
+    headers: { Authorization: `Bearer ${jwt}` },
+  });
