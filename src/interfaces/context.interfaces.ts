@@ -25,6 +25,7 @@ export interface Message{
     _id: string;
     sendingUser: string;
     message: string;
+    seen: boolean;
     createdAt: string;
     updatedAt: string;
 }

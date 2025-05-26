@@ -15,7 +15,7 @@ interface Props {
 
 export default function ChatItem({chat}:Props) {
 
-  const { users, user, selectChat, otherUser } = useChat();
+  const { users, user, selectChat, otherUser, activeChat } = useChat();
   const [receivingUser, setReceivingUser] = useState<UserChat>({
     _id: '',
     email: '',
@@ -80,8 +80,8 @@ export default function ChatItem({chat}:Props) {
             primary={ getMessageDate() }
             
             // TODO: validar cuando se reciban mensajes nuevos sin leer.
-            // secondary={ ( activeChat._id !== chat._id && chat.messages.length // validar cuando hayan mensajes nuevos //  ) && '{X}'
-            //  }
+            // secondary={ ( activeChat._id !== chat._id && chat.messages.length ) && '{X}' }
+            secondary={ chat.messages[chat.messages.length -1].seen === false && 'new message' }
           />
         </ListItemSecondaryAction>
 
