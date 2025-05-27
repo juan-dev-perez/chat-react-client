@@ -41,7 +41,7 @@ export default function ChatItem({chat}:Props) {
   
     if(chat.messages.length === 0 ) return;
 
-    const date: string = chat.messages[chat.messages.length - 1].updatedAt;
+    const date: string = chat.messages[chat.messages.length - 1].createdAt;
     const messageDate: Date = new Date(date);
     const currentDate: Date = new Date();
 
@@ -65,6 +65,16 @@ export default function ChatItem({chat}:Props) {
     return `${hour}:${min}`;
   }
 
+  const validateUnreadMessage = () => {
+    let unreadMessagesCount = 0;
+    chat.messages.forEach(message => {
+      if(message.seen === false && message.sendingUser !== user._id){
+        unreadMessagesCount++;
+      }
+    });
+    return unreadMessagesCount
+  }
+
   return (
     <>
       <ListItemButton
@@ -81,7 +91,7 @@ export default function ChatItem({chat}:Props) {
             
             // TODO: validar cuando se reciban mensajes nuevos sin leer.
             // secondary={ ( activeChat._id !== chat._id && chat.messages.length ) && '{X}' }
-            secondary={ chat.messages[chat.messages.length -1].seen === false && 'new message' }
+            secondary={ validateUnreadMessage() !== 0 ? validateUnreadMessage() : '' }
           />
         </ListItemSecondaryAction>
 

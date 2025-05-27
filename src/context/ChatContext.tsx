@@ -8,7 +8,7 @@ import {
 import { getAllChats, getAllUsers } from "../api/api";
 import { getJWT } from "../common/auth-cookie";
 import { UserChat } from "../interfaces/user.interface";
-import { connectToServer, socket } from "../websockets/socket";
+import { connectToServer, socket, verifySeen } from "../websockets/socket";
 
 const initialUser = {
   _id: "",
@@ -59,6 +59,7 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
   const selectChat = (chat: Chat, otherUser: UserChat) => {
     setActiveChat(chat);
     setOtherUser(otherUser);
+    verifySeen(otherUser);
   };
 
   const getChats = async () => {
@@ -91,6 +92,8 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
   const closeNotification = (): void => {
     setShowNotification(false);
   };
+
+  
 
   useEffect(() => {
     if (!getJWT()) return navigate("/login");

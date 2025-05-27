@@ -1,6 +1,7 @@
 import { Manager, Socket } from "socket.io-client";
 import { Chat } from "../interfaces/context.interfaces";
 import { getJWT } from "../common/auth-cookie";
+import { UserChat } from "../interfaces/user.interface";
 
 export let socket: Socket;
 
@@ -30,4 +31,8 @@ export const connectToServer = () => {
 
 export const emitFromClient = (chat: Chat) => {
     socket.emit('message-from-client', chat );
+}
+
+export const verifySeen = (idOtherUser: UserChat) => {
+    socket.emit('verify-seen-client', idOtherUser._id);
 }
