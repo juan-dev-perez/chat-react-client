@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import { ChatProvider } from "../../context/ChatContext";
+import ChatProvider from "../../context/ChatContext";
 import ChatContainer from "./ChatContainer/ChatContainer";
 import ListChatsContainer from "./ListChatsContainer/ListChatsContainer";
 import ProfileContainer from "./ProfileContainer/ProfileContainer";

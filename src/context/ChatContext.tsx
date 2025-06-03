@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Chat,
@@ -42,7 +42,7 @@ export const ChatContext = createContext<ChatContextValue>({
   allUsers: [],
 });
 
-export const ChatProvider: React.FC<Props> = ({ children }) => {
+const ChatProvider: React.FC<Props> = ({ children }) => {
   const navigate = useNavigate();
 
   const [chats, setChats] = useState<Chat[]>([]);
@@ -55,6 +55,9 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
   const [successNotification, setSuccessNotification] =
     useState<boolean>(false);
   const [messageNotification, setMessageNotification] = useState<string>("");
+
+  const activeChatRef = useRef(activeChat);
+  const otherUserRef = useRef(otherUser);
 
   const selectChat = (chat: Chat, otherUser: UserChat) => {
     setActiveChat(chat);
@@ -93,8 +96,44 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
     setShowNotification(false);
   };
 
-  
+  const seenInActiveChat = (chat: Chat): void => {
+    console.log("se ejecuto seen in active chat");
 
+    if (chat.messages[chat.messages.length - 1].seen === false) {
+      verifySeen(otherUserRef.current);
+    }
+
+    return;
+  };
+
+  const handleIncomingChat = (chat: Chat) => {
+    const lastMessage = chat.messages[chat.messages.length - 1];
+    if (
+      chat._id === activeChatRef.current._id &&
+      lastMessage.sendingUser === otherUserRef.current._id
+    )
+      seenInActiveChat(chat);
+    setChats((prevChats) => {
+      const existing = prevChats.find((oneChat) => oneChat._id === chat._id);
+      if (existing) {
+        return prevChats.map((oneChat) =>
+          oneChat._id === chat._id ? chat : oneChat
+        );
+      } else {
+        return [...prevChats, chat];
+      }
+    });
+  };
+
+  useEffect(() => {
+    activeChatRef.current = activeChat;
+  }, [chats]);
+
+  useEffect(() => {
+    otherUserRef.current = otherUser;
+  }, [otherUser]);
+
+  // Montaje
   useEffect(() => {
     if (!getJWT()) return navigate("/login");
     connectToServer();
@@ -102,15 +141,14 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
     getUsers();
   }, []);
 
+  // Websockets
   useEffect(() => {
-    if (socket) {
-      socket.on("message-from-server", (chat: Chat) => {
-        setChats(
-          chats.map((oneChat) => (oneChat._id === chat._id ? chat : oneChat))
-        );
-      });
-    }
-  }, [chats]);
+    if (!socket || !socket.on) return;
+    socket.on("message-from-server", handleIncomingChat);
+    return () => {
+      socket.off("message-from-server", handleIncomingChat);
+    };
+  }, []);
 
   return (
     <ChatContext.Provider
@@ -135,3 +173,5 @@ export const ChatProvider: React.FC<Props> = ({ children }) => {
     </ChatContext.Provider>
   );
 };
+
+export default ChatProvider;
